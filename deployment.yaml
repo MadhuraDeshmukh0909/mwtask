@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-site
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: php-site
+  template:
+    metadata:
+      labels:
+        app: php-site
+    spec:
+      containers:
+      - name: php-site
+        image: myacr0505.azurecr.io/mwimg:latest 
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: acrsecret
