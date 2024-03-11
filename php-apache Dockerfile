@@ -1,0 +1,29 @@
+FROM php:8.0-apache
+
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libwebp-dev \
+    libxml2-dev \
+    libzip-dev \
+    libicu-dev \
+   libonig-dev \
+
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install -j$(nproc) gd mysqli mbstring intl xml zip
+
+RUN a2enmod rewrite
+
+RUN curl -o mediawiki.tar.gz https://releases.wikimedia.org/mediawiki/1.41/mediawiki-1.41.0.tar.gz \
+    && tar -zxf mediawiki.tar.gz -C /var/www/html/ \
+    && mv /var/www/html/mediawiki-1.41.0/* /var/www/html/mediawiki \
+    && rm mediawiki.tar.gz
+
+
+RUN chown -R www-data:www-data /var/www/html/mediawiki
+
+EXPOSE 80
