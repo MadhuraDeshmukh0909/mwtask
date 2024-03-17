@@ -15,9 +15,15 @@ steps:
   inputs:
     command: 'build'
     Dockerfile: 'php-apache-Dockerfile'
+    tags: |
+      $(Build.BuildId)
+      latest
 - task: Docker@2
   displayName: "Docker Push"
   inputs:
     containerRegistry: 'acrconnection'
     repository: 'mwimg'
     command: 'push'
+    tags: |
+      $(Build.BuildId)
+      latest
