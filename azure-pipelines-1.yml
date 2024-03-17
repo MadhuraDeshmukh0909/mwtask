@@ -25,6 +25,8 @@ steps:
   inputs:
     targetType: 'inline'
     script: 'kubectl create secret generic mysql-secret --from-literal=MYSQL_ROOT_PASSWORD=root --from-literal=MYSQL_DATABASE=mwdb --from-literal=MYSQL_USER=mwdbadmin --from-literal=MYSQL_PASSWORD=Passw0rd@123'
+    errorActionPreference: 'continue'
+    progressPreference: 'continue'
 - task: KubernetesManifest@1
   inputs:
     action: 'deploy'
