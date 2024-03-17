@@ -29,3 +29,13 @@ steps:
     tags: |
       $(Build.BuildId)
       latest
+
+- task: KubernetesManifest@1
+  inputs:
+    action: 'deploy'
+    connectionType: 'azureResourceManager'
+    azureSubscriptionConnection: 'cicdtest'
+    azureResourceGroup: 'aks-cluster-rg'
+    kubernetesCluster: 'aks-cluster'
+    namespace: 'default'
+    manifests: 'deployment.yaml'
