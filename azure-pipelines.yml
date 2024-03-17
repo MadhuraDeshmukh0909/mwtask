@@ -11,10 +11,12 @@ pool:
 
 steps:
 - task: Docker@2
+  displayName: "BC Kahiki"
   inputs:
     command: 'build'
     Dockerfile: 'php-apache-Dockerfile'
 - task: Docker@2
+  displayName: "Gadhi kahi ki"
   inputs:
     containerRegistry: 'acrconnection'
     repository: 'mwimg'
