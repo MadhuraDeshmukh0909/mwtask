@@ -18,7 +18,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
 
 RUN a2enmod rewrite
 
-RUN curl -o mediawiki.tar.gz https://releases.wikimedia.org/mediawiki/1.41/mediawiki-1.41.0.tar.gz
+RUN curl -o mediawiki-1.41.0.tar.gz https://releases.wikimedia.org/mediawiki/1.41/mediawiki-1.41.0.tar.gz
 RUN tar -zxf mediawiki-1.41.0.tar.gz -C /var/www/html/
 RUN mv /var/www/html/mediawiki-1.41.0/* /var/www/html/mediawiki
 RUN rm mediawiki-1.41.0.tar.gz
