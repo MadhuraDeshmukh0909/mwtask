@@ -39,3 +39,13 @@ steps:
     kubernetesCluster: 'aks-cluster'
     namespace: 'default'
     manifests: 'deployment.yaml'
+- task: KubernetesManifest@1
+  inputs:
+    action: 'deploy'
+    connectionType: 'azureResourceManager'
+    azureSubscriptionConnection: 'cicdtest'
+    azureResourceGroup: 'aks-cluster-rg'
+    kubernetesCluster: 'aks-cluster'
+    namespace: 'default'
+    manifests: 'mysql-deployment.yaml'
+    containers: 'kubectl create secret generic mysql-secret --from-literal=MYSQL_ROOT_PASSWORD=root --from-literal=MYSQL_DATABASE=mwdb --from-literal=MYSQL_USER=mwdbadmin --from-literal=MYSQL_PASSWORD=Passw0rd@123'
