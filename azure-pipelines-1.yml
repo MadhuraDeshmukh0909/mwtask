@@ -10,17 +10,23 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-#- task: Docker@2
-#  inputs:
-#    containerRegistry: 'acrconnection'
-#    repository: 'mysqlimg'
-#    command: 'build'
-#    Dockerfile: 'mysql-Dockerfile'
-#- task: Docker@2
-#  inputs:
-#    containerRegistry: 'acrconnection'
-#    repository: 'mysqlimg'
-#    command: 'push'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'acrconnection'
+    repository: 'mysqlimg'
+    command: 'build'
+    Dockerfile: 'mysql-Dockerfile'
+    tags: |
+      $(Build.BuildId)
+      latest
+- task: Docker@2
+  inputs:
+    containerRegistry: 'acrconnection'
+    repository: 'mysqlimg'
+    command: 'push'
+    tags: |
+      $(Build.BuildId)
+      latest
 #- task: Kubernetes@1
 #  inputs:
 #    connectionType: 'Azure Resource Manager'
