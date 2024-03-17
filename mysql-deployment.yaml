@@ -38,3 +38,5 @@ spec:
               key: MYSQL_PASSWORD
         ports:
         - containerPort: 3306
+      imagePullSecrets:
+      - name: acrsecret
