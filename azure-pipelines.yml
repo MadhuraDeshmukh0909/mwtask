@@ -29,6 +29,17 @@ steps:
     tags: |
       $(Build.BuildId)
       latest
+- task: Docker@2
+  inputs:
+    containerRegistry: 'acrconnection'
+    repository: 'mysqlimg'
+    command: 'build'
+    Dockerfile: 'mysql-Dockerfile'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'acrconnection'
+    repository: 'mysqlimg'
+    command: 'push'
 
 - task: KubernetesManifest@1
   inputs:
@@ -48,4 +59,4 @@ steps:
     kubernetesCluster: 'aks-cluster'
     namespace: 'default'
     manifests: 'mysql-deployment.yaml'
-    containers: 'kubectl create secret generic mysql-secret --from-literal=MYSQL_ROOT_PASSWORD=root --from-literal=MYSQL_DATABASE=mwdb --from-literal=MYSQL_USER=mwdbadmin --from-literal=MYSQL_PASSWORD=Passw0rd@123'
+    imagePullSecrets: 'kubectl create secret generic mysql-secret --from-literal=MYSQL_ROOT_PASSWORD=root --from-literal=MYSQL_DATABASE=mwdb --from-literal=MYSQL_USER=mwdbadmin --from-literal=MYSQL_PASSWORD=Passw0rd@123'
